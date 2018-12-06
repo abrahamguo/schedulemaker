@@ -8,8 +8,8 @@
 
 class ScheduleCreator {
 
-	public static function makeAutomatic () {
-		$weekStartDate = new DateTime("Monday next week");
+	public static function makeAutomatic (bool $thisWeek = false) {
+		$weekStartDate = new DateTime("Monday " . ($thisWeek ? "this" : "next") . " week");
 		$employees = Employee::getAll();
 		$unassignedShiftsContainer = Week::getUnassignedShiftsContainer($weekStartDate);
 		self::make(

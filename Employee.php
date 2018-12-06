@@ -10,7 +10,7 @@
 
 
 	echo "
-		<h1>Employee</h1>
+		<h1>Employee Dashboard</h1>
 		<a class='btn btn-primary mb-3' href='PersonalSchedule.php'>View My Schedule</a>
 		<a class='btn btn-primary mb-3' href='AvailabilityForm.php'>Submit Availability</a>
 		<a class='btn btn-primary mb-3' href='TemporaryAvailabilityForm.php'>Submit Temporary Availability</a>

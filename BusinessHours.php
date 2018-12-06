@@ -18,6 +18,9 @@
 <h1>Business Hours</h1>
 <form method='post'>
 	<input type='hidden' name='action' value='SaveBusinessHours'>
+	<div class='form-group'>
+		<button class='btn btn-primary'>Save</button>
+	</div>
 	<?php
 		$businessHours = Business::getBusiness()->getBusinessHours();
 		$formCount = 0;
@@ -33,10 +36,6 @@
 		for(; $formCount < 7; $formCount++)
 			(new TimeBlockForm)->dayOfWeek(TimeBlock::DAYS[$formCount])->label("we're open from")->echo();
 	?>
-
-	<div class='form-group'>
-		<button class='btn btn-primary'>Save</button>
-	</div>
 </form>
 
 <?php require "Foot.php";

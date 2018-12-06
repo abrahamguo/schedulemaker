@@ -56,7 +56,7 @@ class Week extends Persistence {
 		if ($weekID = $this->WeekID) $this->TimeBlocks = TimeBlock::getWhere(["WeekID" => $weekID]);
 		if ($seID = $assoc["ScheduledEmployeeID"]) $this->ScheduledEmployee = Staff::getByID($seID);
 		if ($oaeID = $assoc["OverrideAvailabilityEmployeeID"])
-			$this->OverrideAvailabilityEmployee = $this->ScheduledEmployee = Staff::getByID($oaeID);
+			$this->OverrideAvailabilityEmployee = Staff::getByID($oaeID);
 	}
 
 	public static function getUnassignedShiftsContainer(DateTime $monday) {

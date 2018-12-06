@@ -17,6 +17,9 @@
 		<h1>Define Shift Hours</h1>
 		<form method='post'>
 			<input type='hidden' name='action' value='SaveShiftHours'>
+			<div class='form-group'>
+				<button type='submit' class='btn btn-primary'>Submit</button>
+			</div><!-- /.form-group -->
 	";
 	foreach (Business::getBusiness()->getShiftHours()->getTimeBlocks() as $timeBlock)
 		(new TimeBlockForm)
@@ -29,7 +32,6 @@
 		->label("")
 		->echo();
 	echo "
-			<button type='submit' class='btn btn-primary'>Submit</button>
 		</form>
 	";
 

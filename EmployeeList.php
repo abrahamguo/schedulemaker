@@ -48,7 +48,7 @@
 			</div>
 			<div class='form-group'>
 				<label for='UserName'>Username</label>
-				<input name='UserName' type='text' class='form-control' id='UserName'>
+				<input name='UserName' type='text' class='form-control' id='UserName' placeholder='Leave blank to auto-generate a username'>
 			</div>
 			<input type='hidden' name='action' value='create'>
 		")
@@ -110,14 +110,15 @@
 				<td>" . $employee->getLastName() . "</td>
 				<td>" . $employee->getUsername() . "</td>
 				<td>";
+				$monday = new DateTime("Monday next week");
 				(new Modal)
-					->title("Availability for {$employee->getFirstName()} {$employee->getLastName()}")
+					->title("Availability for {$employee->getFirstName()} {$employee->getLastName()} - week of {$monday->format("M j")}")
 					->buttonText("View Availability")
 					->buttonClass("info")
 					->large()
 					->noSave()
 					->contents(
-						(new ScheduleView($employee->getWeekAvailability(new DateTime("Monday this week"))))
+						(new ScheduleView($employee->getWeekAvailability($monday)))
 							->noNames()
 							->compact()
 							->render()

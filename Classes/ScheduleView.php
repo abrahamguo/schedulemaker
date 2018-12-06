@@ -102,20 +102,17 @@
 								"; foreach ($day as $period) {
 									if ($editable) { $editForm = "
 										<input type='hidden' name='action' value='editEmployeesSchedule'>
-										"; foreach ($period as $shift) { $editForm .= "
+										"; foreach ($period as $shift) {
+										$scheduledEmployee = $shift->getWeek()->getScheduledEmployee();$editForm .= "
 										<div class='form-group'>
 											<label for='Employee'>
 												Employee:
 												<select name='employeeID[]'>
+													<option value" . ($scheduledEmployee ? "" : " selected") . ">None</option>
 													"; foreach (Employee::getAll() as $e) { $editForm .= "
 														<option
 															value='{$e->id()}'
-															" . (
-																($scheduledEmployee = $shift->getWeek()->getScheduledEmployee()) &&
-																$e->id() == $scheduledEmployee->id()
-																	? "selected"
-																	: ""
-															) . "
+															" . ($scheduledEmployee && $e->id() == $scheduledEmployee->id() ? "selected" : "") . "
 														>
 															{$e->getFirstName()} {$e->getLastName()}
 														</option>
@@ -131,7 +128,7 @@
 									$o .= "
 									
 									<div
-										class='position-absolute w-100 py-1 px-2 border-white border-top border-bottom'
+										class='position-absolute w-100 py-1 px-2 border-white border-bottom'
 										style='
 											background: rgba(0, 123, 255, .5);
 											font-size: .8rem;

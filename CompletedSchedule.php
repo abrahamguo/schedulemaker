@@ -9,10 +9,12 @@
 	require "Head.php";
 
 	$isNextWeek = $_GET["Next"];
+	$monday = new DateTime("Monday " . ($isNextWeek ? "next" : "this") . " week");
 
 	echo "
-		<div class='text-right mb-5'>
+		<div class='mb-5'>
 			<h1>" . ($isNextWeek ? "Next Week's" : "Current") . " Schedule</h1>
+			<p>You are viewing the schedule for the week beginning <b>{$monday->format("F j")}</b>.</p>
 			<a href='?" . ($isNextWeek ? "" : "Next=1") . "' class='btn btn-primary'>
 				" . ($isNextWeek ? "Current" : "Next Week's") . " Schedule
 			</a>
@@ -29,7 +31,10 @@
 			$startDate = $week->getStartDate();
 			$week->removeTimeBlock($timeBlock);
 
-			$week = Employee::getByID($employees[$i])->getScheduleFor($startDate);
+			$employeeID = $employees[$i];
+			$week = $employeeID
+				? Employee::getByID($employeeID)->getScheduleFor($startDate)
+				: Week::getUnassignedShiftsContainer($startDate);
 			$week->addTimeBlock($timeBlock);
 
 			$week->sync();
@@ -37,11 +42,10 @@
 		Util::redir("CompletedSchedule.php");
 	}
 
-	$monday = new DateTime("Monday " . ($isNextWeek ? "next" : "this") . " week");
 	(new ScheduleView(array_merge(
 		array_map(
 			function (Employee $e): Week {
-				global $isNextWeek, $monday;
+				global $monday;
 				return $e->getScheduleFor($monday);
 			},
 			Employee::getAll()

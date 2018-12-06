@@ -24,7 +24,7 @@
 				$overrideWeek = new Week([
 					"OverrideAvailabilityEmployee" => $loggedInEmployee,
 					"StartDate" => $selectedMonday,
-					"EndDate" => TimeBlock::add6($selectedMonday)
+					"EndDate" => Week::add6($selectedMonday)
 				]);
 			}
 			$loggedInEmployee->addOverrideAvailability($overrideWeek);
@@ -40,25 +40,25 @@
 <h1>Temporary Availability Form</h1>
 <form method='get'>
 	<input type='hidden' name='weekSelection' value='Week'>
-	<p>For the week of <input type="week" name="TemporaryWeek" value="<?php echo $selectedWeek;?>" required> <button class="btn btn-success">Go</button></p>
+	<p>For the week of <input type="week" class="form-control w-auto d-inline-block" name="TemporaryWeek" value="<?php echo $selectedWeek;?>" required> <button class="btn btn-success">Go</button></p>
 
 </form>
 
 <form method="post">
 	<input type='hidden' name='action' value='SaveTemporaryAvailability'>
-	<?php
-	if ($selectedMonday) {
-		$week = $loggedInEmployee->getWeekOverride($selectedMonday);
-		if ($week)
-			foreach ($week->getTimeBlocks() as $block)
-				(new TimeBlockForm)->timeBlock($block)->echo();
-	}
-	(new TimeBlockForm)->echo();
-	?>
 	<div class='form-group'>
-		<button class='btn btn-primary' name='Submit' value='standard'>Save</button>
+		<button type='submit' class='btn btn-primary' name='Submit' value='standard'>Submit</button>
 		<button class='btn btn-danger' name='Submit' value='off'>Request Week Off</button>
-	</div><!-- /.form-group -->
+	</div>
+	<?php
+		if ($selectedMonday) {
+			$week = $loggedInEmployee->getWeekOverride($selectedMonday);
+			if ($week)
+				foreach ($week->getTimeBlocks() as $block)
+					(new TimeBlockForm)->timeBlock($block)->echo();
+		}
+		(new TimeBlockForm)->echo();
+	?>
 </form>
 
 <?php

@@ -5,7 +5,7 @@
 	
 	require "Head.php";
 ?>
-<h1>Employer</h1>
+<h1>Employer Dashboard</h1>
 <div class='form-group'>
 	<a class='btn btn-primary mb-3' href='EmployeeList.php' role='button'>List of Employees</a>
 	<a class='btn btn-primary mb-3' href='BusinessHours.php' role='button'>Define Business Hours</a>

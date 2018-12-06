@@ -18,14 +18,14 @@
 <h1>Default Availability Form</h1>
 <form method='post'>
 	<input type='hidden' name='action' value='SaveAvailability'>
+	<div class='form-group'>
+		<button class='btn btn-primary'>Save</button>
+	</div><!-- /.form-group -->
 	<?php
 		foreach ($loggedInEmployee->getDefaultAvailability()->getTimeBlocks() as $block)
 			(new TimeBlockForm)->timeBlock($block)->echo();
 		(new TimeBlockForm)->echo();
 	?>
-	<div class='form-group'>
-		<button class='btn btn-primary'>Save</button>
-	</div><!-- /.form-group -->
 </form>
 
 <?php require "Foot.php"; ?>
